@@ -24,7 +24,7 @@ def write_tree(directory='.'):
 
     tree = ''.join(f'{type_} {oid} {name}\n'
                    for name, oid, type_ in sorted(entries))
-    return data.hash_objects(tree.enncode(), 'tree')
+    return data.hash_objects(tree.encode(), 'tree')
 
 
 def _iter_tree_entries(oid):
