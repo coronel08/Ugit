@@ -24,4 +24,4 @@ $ start
 ```
 ### To-do list
 - [x] Test
-- [] Test2
+- [ ] Test2
