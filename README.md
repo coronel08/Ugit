@@ -5,9 +5,9 @@ tutorial is followed from [Ugit Tutorial](https://www.leshenko.net/p/ugit/)
 
 
 ## Table of contents
-*[General info](#General-info)
-*[Technologies](#Technologies)
-*[Setup](#Setup)
+* [General info](#General-info)
+* [Technologies](#Technologies)
+* [Setup](#Setup)
 ## General info
 this project is used to recreate git features and implement them to learn how git works.
 
