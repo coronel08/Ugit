@@ -73,7 +73,7 @@ def init(args):
 
 def hash_object(args):
     with open(args.file, 'rb') as f:
-        print(data.hash_object(f.read()))
+        print(data.hash_objects(f.read()))
 
 
 def cat_file(args):
@@ -120,8 +120,8 @@ def k(args):
     oids = set()
     for refname, ref in data.iter_refs():
         dot += f'"{refname}" [shape=note]\n'
-        dot += f'"{refname}" -> "{ref}"\n'
-        oids.add(ref)
+        dot += f'"{refname}" -> "{ref.value}"\n'
+        oids.add(ref.value)
 
     for oid in base.iter_commits_and_parents(oids):
         commit = base.get_commit(oid)
