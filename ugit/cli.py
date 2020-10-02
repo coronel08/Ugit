@@ -63,7 +63,7 @@ def parse_args():
     k_parser = commands.add_parser('k')
     k_parser.set_defaults(func=k)
 
-    status_parser = commands.add_parser()
+    status_parser = commands.add_parser('status')
     status_parser.set_defaults(func=status)
 
     return parser.parse_args()
