@@ -67,7 +67,7 @@ def parse_args():
 
 
 def init(args):
-    data.init()
+    base.init()
     print(f'Initialized empty git repository in {os.getcwd()}/{data.GIT_DIR}')
 
 
