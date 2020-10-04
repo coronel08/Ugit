@@ -3,6 +3,7 @@ Learning how to use git by recreating git.
 tutorial is followed from [Ugit Tutorial](https://www.leshenko.net/p/ugit/)
 :smiley: 💨
 
+https://rogerdudler.github.io/git-guide/
 
 ## Table of contents
 * [General info](#General-info)
@@ -43,7 +44,7 @@ git push and git pull - Push and pull remote repo
 git status - Shows what changes have been made
 
 git log or gitk - Shows info
----------------Branches-----------------------
+### Branches
 git checkout -b [branch name] - This is the same as Git Branch [branch name], then Git checkout [branch name] 
 git checkout [commit or HEAD^ or tag] - This detaches head
 
@@ -57,3 +58,13 @@ moving upwards 3 commits ~3
 Example: git checkout HEAD or [branch name]^
 
 git branch -f master HEAD~2 - This force moves the master branch to 2 commits ago.
+
+### Reversing changes in Git
+git reset HEAD~1 - This reverts the branch backwards as if the commit never happened, Works for local branches
+
+git revert [branch name or tag ] - This creates a new commit with old info under last commit. Use for remote branch
+
+#### advanced feature
+git cherry-pick [commit names] - This copies the commits into master
+
+git rebase -i HEAD~3 - This opens an interactive cherry picking gui
