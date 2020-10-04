@@ -287,5 +287,16 @@ def get_oid(name):
     assert False, f'Unknown name {name}'
 
 
+def add(filenames):
+    with data.get_index() as index:
+        for filename in filenames:
+            # Normalize path
+            filename = os.path.relpath(filename)
+            with open(filename, 'rb') as f:
+                oid = data.hash_objects(f.read())
+            index[filename] = oid
+
+
 def is_ignored(path):
     return '.ugit' in path.split('/')
+
