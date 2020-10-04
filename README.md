@@ -26,3 +26,14 @@ $ Ugit commit, ugit push etc.
 ### To-do list
 - [x] Test
 - [ ] Test2
+
+# Git Basics
+git init - To initialize git in folder
+
+gti commit -m 'message' - This is to add
+
+git checkout -b [branch name] - This is the same as Git Branch [branch name], then Git checkout [branch name] 
+
+git merge [branch name] - Merge branch [branch name], run it in master branch
+
+
