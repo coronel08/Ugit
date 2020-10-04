@@ -21,6 +21,7 @@ this project will run in terminal similar to how git runs
 $ cd ../lorem
 $ pip install
 $ start
+$ Ugit commit, ugit push etc.
 ```
 ### To-do list
 - [x] Test
