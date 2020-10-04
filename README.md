@@ -28,12 +28,32 @@ $ Ugit commit, ugit push etc.
 - [ ] Test2
 
 # Git Basics
+[Git Walkthrough](https://learngitbranching.js.org/)
+
 git init - To initialize git in folder
 
-gti commit -m 'message' - This is to add
+git clone [github repo]
 
+git add [. / or folder/ or filename/ or ]
+
+git commit -m 'message' - This is to add changes locally
+
+git push and git pull - Push and pull remote repo
+ 
+git status - Shows what changes have been made
+
+git log or gitk - Shows info
+---------------Branches-----------------------
 git checkout -b [branch name] - This is the same as Git Branch [branch name], then Git checkout [branch name] 
+git checkout [commit or HEAD^ or tag] - This detaches head
 
-git merge [branch name] - Merge branch [branch name], run it in master branch
+git merge [branch name] - Use merge branch [branch name], run it in master branch
 
+git rebase master - If we are in [branch name] this puts it on top of master linearly.
+git rebase [branch name] - Run in master
 
+moving upwards one commit, then two ^,^^
+moving upwards 3 commits ~3
+Example: git checkout HEAD or [branch name]^
+
+git branch -f master HEAD~2 - This force moves the master branch to 2 commits ago.
