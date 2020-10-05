@@ -55,7 +55,8 @@ def parse_args():
 
     diff_parser = commands.add_parser('diff')
     diff_parser.set_defaults(func=_diff)
-    diff_parser.add_argument('commit', default='@', type=oid, nargs='?')
+    diff_parser.add_argument('--cached', action='store_true')
+    diff_parser.add_argument('commit', nargs='?')
 
     checkout_parser = commands.add_parser('checkout')
     checkout_parser.set_defaults(func=checkout)
@@ -86,7 +87,7 @@ def parse_args():
     merge_parser.add_argument('commit', type=oid)
 
     merge_base_parser = commands.add_parser('merge-base')
-    merge_base_parser.set_defaults(func='merge_base')
+    merge_base_parser.set_defaults(func=merge_base)
     merge_base_parser.add_argument('commit1', type=oid)
     merge_base_parser.add_argument('commit2', type=oid)
 
@@ -108,7 +109,7 @@ def parse_args():
 
 def init(args):
     base.init()
-    print(f'Initialized empty git repository in {os.getcwd()}/{data.GIT_DIR}')
+    print(f'Initialized empty ugit repository in {os.getcwd()}/{data.GIT_DIR}')
 
 
 def hash_object(args):
@@ -166,8 +167,25 @@ def show(args):
 
 
 def _diff(args):
-    tree = args.commit and base.get_commit(args.commit).tree
-    result = diff.diff_trees(base.get_tree(tree), base.get_working_tree())
+    oid = args.commit and base.get_oid(args.commit)
+
+    if args.commit:
+        # If a commit was provided explicitly, diff from it
+        tree_from = base.get_tree(oid and base.get_commit(oid).tree)
+
+    if args.cached:
+        tree_to = base.get_index_tree()
+        if not args.commit:
+            # If no commit was provided, diff from HEAD
+            oid = base.get_oid('@')
+            tree_from = base.get_tree(oid and base.get_commit(oid).tree)
+    else:
+        tree_to = base.get_working_tree()
+        if not args.commit:
+            # If no commit was provided, diff from index
+            tree_from = base.get_index_tree()
+
+    result = diff.diff_trees(tree_from, tree_to)
     sys.stdout.flush()
     sys.stdout.buffer.write(result)
 
@@ -203,7 +221,7 @@ def k(args):
 
     for oid in base.iter_commits_and_parents(oids):
         commit = base.get_commit(oid)
-        dot += f'"{oid}" [shape=box style=filled label={oid[:10]}"]\n'
+        dot += f'"{oid}" [shape=box style=filled label="{oid[:10]}"]\n'
         for parent in commit.parents:
             dot += f'"{oid}" -> "{parent}"\n'
 
@@ -231,7 +249,12 @@ def status(args):
     print('\nChanges to be committed:\n')
     HEAD_tree = HEAD and base.get_commit(HEAD).tree
     for path, action in diff.iter_changed_files(base.get_tree(HEAD_tree),
-                                                base.get_working_tree()):
+                                                base.get_index_tree()):
+        print(f'{action:>12}: {path}')
+
+    print('\nChanges not staged for commit\n')
+    for path, action in diff.iter_changed_files(base.get_index_tree(),
+                                               base.get_working_tree()):
         print(f'{action:>12}: {path}')
 
 
