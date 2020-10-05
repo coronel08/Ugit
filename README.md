@@ -57,7 +57,7 @@ moving upwards one commit, then two ^,^^
 moving upwards 3 commits ~3
 Example: git checkout HEAD or [branch name]^
 
-git branch -f master HEAD~2 - This force moves the master branch to 2 commits ago.
+git branch -f master [HEAD~2 or tag or commit] - This force moves the master branch to 2 commits ago.
 
 ### Reversing changes in Git
 git reset HEAD~1 - This reverts the branch backwards as if the commit never happened, Works for local branches
@@ -66,5 +66,31 @@ git revert [branch name or tag ] - This creates a new commit with old info under
 
 #### advanced feature
 git cherry-pick [commit names] - This copies the commits into master
+Example: git checkout master    change into master branch from working branch
+Example: git cherry-pick [commit]
 
 git rebase -i HEAD~3 - This opens an interactive cherry picking gui
+Example: git rebase -i HEAD~3     this gives the option to include what commits run on working branch
+Example: git branch -f master [tag or commit]   this forces master branch to a commit 
+
+
+### 4.1 Grabbing Just 1 Commit
+```
+git checkout master;
+git cherry-pick C4;
+or
+git rebase -i master;
+git branch -f master c4;
+```
+
+### 4.2 Juggling Commits
+```
+git rebase -i HEAD^^;
+git checkout newImage;
+git rebase caption;
+git commit --amend
+git rebase -i HEAD^^
+git checkout caption
+git rebase newImage
+git branch -f master c3'';
+```
