@@ -87,7 +87,7 @@ def parse_args():
     merge_parser.add_argument('commit', type=oid)
 
     merge_base_parser = commands.add_parser('merge-base')
-    merge_base_parser.set_defaults(func='merge_base')
+    merge_base_parser.set_defaults(func=merge_base)
     merge_base_parser.add_argument('commit1', type=oid)
     merge_base_parser.add_argument('commit2', type=oid)
 
@@ -109,7 +109,7 @@ def parse_args():
 
 def init(args):
     base.init()
-    print(f'Initialized empty git repository in {os.getcwd()}/{data.GIT_DIR}')
+    print(f'Initialized empty ugit repository in {os.getcwd()}/{data.GIT_DIR}')
 
 
 def hash_object(args):
@@ -179,7 +179,6 @@ def _diff(args):
             # If no commit was provided, diff from HEAD
             oid = base.get_oid('@')
             tree_from = base.get_tree(oid and base.get_commit(oid).tree)
-
     else:
         tree_to = base.get_working_tree()
         if not args.commit:
@@ -222,7 +221,7 @@ def k(args):
 
     for oid in base.iter_commits_and_parents(oids):
         commit = base.get_commit(oid)
-        dot += f'"{oid}" [shape=box style=filled label={oid[:10]}"]\n'
+        dot += f'"{oid}" [shape=box style=filled label="{oid[:10]}"]\n'
         for parent in commit.parents:
             dot += f'"{oid}" -> "{parent}"\n'
 
@@ -254,7 +253,7 @@ def status(args):
         print(f'{action:>12}: {path}')
 
     print('\nChanges not staged for commit\n')
-    for path,action in diff.iter_changed_files(base.get_index_tree(),
+    for path, action in diff.iter_changed_files(base.get_index_tree(),
                                                base.get_working_tree()):
         print(f'{action:>12}: {path}')
 

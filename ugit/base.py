@@ -17,12 +17,12 @@ def write_tree(directory='.'):
     # Index is flat, we need it as a tree of dicts
     index_as_tree = {}
     with data.get_index() as index:
-        for path, oid, in index.items():
+        for path, oid in index.items():
             path = path.split('/')
             dirpath, filename = path[:-1], path[-1]
 
             current = index_as_tree
-            # Find the dict for the dictionary of this file
+            # Find the dict for the directory of this file
             for dirname in dirpath:
                 current = current.setdefault(dirname, {})
             current[filename] = oid
@@ -34,7 +34,7 @@ def write_tree(directory='.'):
                 type_ = 'tree'
                 oid = write_tree_recursive(value)
             else:
-                type = 'blob'
+                type_ = 'blob'
                 oid = value
             entries.append((name, oid, type_))
 
@@ -244,16 +244,16 @@ def get_commit(oid):
         elif key == 'parent':
             parents.append(value)
         else:
-            assert False, f'Unknown field{key}'
+            assert False, f'Unknown field {key}'
 
     message = '\n'.join(lines)
-    return Commit(tree=tree, parent=parents, message=message)
+    return Commit(tree=tree, parents=parents, message=message)
 
 
 def iter_commits_and_parents(oids):
     # N.B Must yield the oid before accessing it (to allow called to fetch it
     # if needed)
-    oids = deque(oids)
+    oids = deque(set(oids))
     visited = set()
 
     while oids:
@@ -316,7 +316,6 @@ def get_oid(name):
 
 
 def add(filenames):
-
     def add_file(filename):
         # Normalize path
         filename = os.path.relpath(filename)
