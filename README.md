@@ -10,6 +10,7 @@ https://rogerdudler.github.io/git-guide/
 * [General info](#General-info)
 * [Technologies](#Technologies)
 * [Setup](#Setup)
+* [GIT Basics](#Git-Basics)
 ## General info
 This project is used to recreate git features and implement them to learn how git works.
 Notes on the bottom on git walk through and basics
