@@ -42,6 +42,8 @@ git add [.  or folder/ or filename]
 git commit -m 'message' - This is to add changes locally
 
 git push and git pull - Push and pull remote repo
+
+*** git pull is the same as running git fetch and git merge
  
 git status - Shows what changes have been made
 
@@ -119,3 +121,4 @@ git rebase bugFix side
 git rebase side another
 git rebase another master
 ```
+
