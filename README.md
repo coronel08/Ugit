@@ -44,6 +44,8 @@ git push and git pull - Push and pull remote repo
 git status - Shows what changes have been made
 
 git log or gitk - Shows info
+
+git describe [ref or master or branch]
 ### Branches
 git checkout -b [branch name] - This is the same as Git Branch [branch name], then Git checkout [branch name] 
 git checkout [commit or HEAD^ or tag] - This detaches head
@@ -52,6 +54,7 @@ git merge [branch name] - Use merge branch [branch name], run it in master branc
 
 git rebase master - If we are in [branch name] this puts it on top of master linearly.
 git rebase [branch name] - Run in master
+git rebase [master] [branch name] - To rebase new branch into master
 
 moving upwards one commit, then two ^,^^
 moving upwards 3 commits ~3
@@ -93,4 +96,20 @@ git rebase -i HEAD^^
 git checkout caption
 git rebase newImage
 git branch -f master c3'';
+```
+
+### 4.3 Juggling Commits #2
+```
+git checkout master
+git cherry-pick c2
+git commit --amend
+git cherry-pick c3
+```
+
+### 5.1 Rebasing over 9000
+```
+git rebase master bugfix
+git rebase bugFix side
+git rebase side another
+git rebase another master
 ```
