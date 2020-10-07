@@ -33,6 +33,8 @@ $ Ugit commit, ugit push etc.
 
 # Git Basics
 [Git Walk through](https://learngitbranching.js.org/)
+
+[Conversational Git](http://blog.anvard.org/conversational-git/)
 ```
 git init - To initialize git in folder
 
@@ -53,15 +55,30 @@ git log or gitk - Shows info
 git describe [ref or master or branch] - Use to figure out where you are if using tags or branches
 ```
 ### Branches
+
+Using merges and basic branching https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+
+[Rebasing guide](https://git-scm.com/book/en/v2/Git-Branching-Rebasing) 
+
+[Rebasing best practices w/ team](https://blog.algolia.com/master-git-rebase/)
+
 ```
 git checkout -b [branch name] - This is the same as Git Branch [branch name], then Git checkout [branch name] 
 git checkout [commit or HEAD^ or tag] - This detaches head
 
 git merge [branch name] - Use merge branch [branch name], run it in master branch
+git mergetool    - Tool for resolving merge conflicts
+
+git push --set-upstream origin [branch name]   - THIS sets branch to be uploaded to Github
+
+git branch -v   - View branches and last commit
+
+git branch -d [branch-name] - THIS DELETES A BRANCH
 
 git rebase master - If we are in [working branch name] this puts it on top of master linearly.
 git rebase [branch name] - Run in master
 git rebase [master] [branch name] - To rebase new branch into master
+git rebase –abort    - IF we run into merge problems, this resets to right before
 
 moving upwards one commit, then two ^,^^
 moving upwards 3 commits ~3
@@ -69,6 +86,8 @@ Example: git checkout HEAD or [branch name]^
 
 git branch -f master [HEAD~2 or tag or commit] - This force moves the master branch to 2 commits ago.
 ```
+Additional refresher on rebasing https://git-scm.com/book/en/v2/Git-Branching-Rebasing
+
 ### Reversing changes in Git
 ```
 git reset HEAD~1 - This reverts the branch backwards as if the commit never happened, Works for local branches
